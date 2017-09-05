@@ -246,11 +246,14 @@ void Mirror::Execute()
 {
 	// error checking here...
 	// input valid, proceed
+    int grab_index  = 0;
+    int place_index = 0;
 	img.SetSize(img1->GetWidth(), img1->GetHeight());
+    int image_width  = img.GetWidth();
 	for (int row = 0; row < img.GetHeight(); row++) { // go by row
-		for (int i = 0; i < img.GetWidth(); i++) { // and then by index
-			int grab_index = ((img.GetWidth() - 1) - i) + (row * img.GetWidth());
-			int place_index = (row * img.GetWidth()) + i;
+		for (int i = 0; i < image_width; i++) { // and then by index
+			grab_index = ((image_width - 1) - i) + (row * image_width);
+			place_index = (row * image_width) + i;
 			img.GetBuffer()[place_index] = img1->GetBuffer()[grab_index];
 		}
 	}
@@ -356,20 +359,22 @@ Blur::Blur(void)
 void Blur::Execute()
 {
 	img.SetSize(img1->GetWidth(), img1->GetHeight());
+    
+    int target,east,west,north,south,nw,ne,sw,se = 0;
 	for (int i = 0; i < img.GetWidth() * img.GetHeight(); i++) {
 		img.GetBuffer()[i] = img1->GetBuffer()[i]; // populate entire image
 	}
 	for (int row = 1; row < img.GetHeight() - 1; row++) {
 		for (int i = 1; i < img.GetWidth() - 1; i++) {
-			int target = (row * img.GetWidth()) + i; // target pixel index
-			int east = target + 1;
-			int west = target - 1;
-			int north = target - img.GetWidth();
-			int south = target + img.GetWidth();
-			int nw = north - 1;
-			int ne = north + 1;
-			int sw = south - 1;
-			int se = south + 1;
+			target = (row * img.GetWidth()) + i; // target pixel index
+			east = target + 1;
+			west = target - 1;
+			north = target - img.GetWidth();
+			south = target + img.GetWidth();
+			nw = north - 1;
+			ne = north + 1;
+			sw = south - 1;
+			se = south + 1;
 			img.GetBuffer()[target].R = img1->GetBuffer()[east].R/8 + img1->GetBuffer()[west].R/8 + img1->GetBuffer()[north].R/8 + 
 				img1->GetBuffer()[south].R/8 + img1->GetBuffer()[nw].R/8 + img1->GetBuffer()[ne].R/8 + 
 					img1->GetBuffer()[sw].R/8 + img1->GetBuffer()[se].R/8;
