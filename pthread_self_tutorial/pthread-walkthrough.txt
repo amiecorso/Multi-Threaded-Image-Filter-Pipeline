@@ -12,8 +12,10 @@ Learn
     pthread_cond^
     pthread_cond_signal
     pthread_cond_broadcast
+    pthread_cond_wait
     
     FOR ALL PROGRAMS, CREATE A TIMER SO THAT WE CAN TEST THREADED VS NON-THREADED
+    ALSO MAKE SURE TO ERROR CHECK ALL THE PTHREAD CALLS (maybe mallocs would be a good thing to check also)!
 
     Create a threaded program that prints out "hello world" without ANY errors
     or memory leaks... The program is initally helworlod.c . Make it run three threads of the printHello
@@ -24,5 +26,8 @@ Learn
     Implement fizzbuzz using cond_broadcast at least once.
 
     Helpful links (please add if you find any usefull to you!)
-    http://ramcdougal.com/threads.html
-    https://stackoverflow.com/questions/14888027/mutex-lock-threads
+    http://ramcdougal.com/threads.html <-- Parallelize forloops (Don't know if we need this)
+    https://stackoverflow.com/questions/14888027/mutex-lock-threads <-- How to Mutex
+    https://stackoverflow.com/questions/459691/best-timing-method-in-c <-- Timing
+    https://docs.oracle.com/cd/E19455-01/806-5257/sync-27/index.html <-- Condition vairable
+    
