@@ -10,15 +10,19 @@ Learn
     pthread_mutex_destroy
     pthread_mutex_(Un)lock
     pthread_cond^
+    pthread_cond_signal
     pthread_cond_broadcast
     
+    FOR ALL PROGRAMS, CREATE A TIMER SO THAT WE CAN TEST THREADED VS NON-THREADED
+
     Create a threaded program that prints out "hello world" without ANY errors
-    or memory leaks
+    or memory leaks... The program is initally helworlod.c . Make it run three threads of the printHello
+    instance so that it still prints out 300 hello worlds.
 
-    Create a threaded program that calculates the fib sequence, but you can only use
-    one variable for storing the sum.
+    Create a threaded program that calculates the fib sequence.
 
-    Implement fizzbuzz using cond_broadcast
+    Implement fizzbuzz using cond_broadcast at least once.
 
     Helpful links (please add if you find any usefull to you!)
     http://ramcdougal.com/threads.html
+    https://stackoverflow.com/questions/14888027/mutex-lock-threads
