@@ -1,3 +1,9 @@
+/*
+    garetthellostrong.c
+    
+    This program takes the workload and number of threads and divides the work up
+    evenly between threads and preforming threaded work
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -11,6 +17,10 @@ pthread_t* threads;
 
 typedef struct 
 {
+    /*
+        Just a structure for giving each thread
+        what part of the buffer it should do
+    */
     int    start;
     int    end;
     char** buffer;
@@ -19,6 +29,12 @@ typedef struct
 void*
 printHello(void* args)
 {
+    /*
+        This puts the numbers in the buffer
+        given from the args. Each thread will get
+        it's own thread args which deterimine what
+        parts of the array it will work on
+    */
     threadargs* in = (threadargs*) args;
     
     int i;
@@ -31,6 +47,9 @@ printHello(void* args)
 void
 joinThreads(void)
 {
+    /*
+        Joins all threads
+    */
     int i;
     for(i = 0; i < THREADNUM; i++)
         pthread_join(threads[i],NULL); 
@@ -39,6 +58,9 @@ joinThreads(void)
 void
 destroyBuffer(char** in)
 {
+    /*
+        This destroys the given buffer in
+    */
     int i;
     for(i = 0; i < WORKLOAD; i++)
         if(in[i] != NULL){
@@ -55,6 +77,9 @@ destroyBuffer(char** in)
 void
 printBuffer(char** in)
 {
+    /*
+        Prints the buffer so that we can see it's output
+    */
     int i;
     for(i = 0; i < WORKLOAD; i++)
         fprintf(stdout,"%s",in[i]);
@@ -65,6 +90,9 @@ printBuffer(char** in)
 int
 bufferChecker(char** in)
 {
+    /*
+        Checks to see if the buffer is correct
+    */
     int i;
     int true = 1;
     for(i = 0;i < WORKLOAD; i++)
@@ -96,6 +124,7 @@ main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 
+    //Creating char arrays in our printbuffer of size 100
     for(i = 0; i < WORKLOAD; i++){
         if((printbuffer[i] = (char*) malloc(sizeof(char) * 100)) == NULL){
             perror("Failed to malloc char* for printbuffer");
@@ -105,6 +134,7 @@ main(int argc, char *argv[])
         memset(printbuffer[i],'\0',100);
     }
     
+    //These threadargs correspond with thread num
     threadargs arguments[THREADNUM];
 
     if((threads = (pthread_t*) malloc(sizeof(pthread_t) * THREADNUM)) == NULL){
@@ -113,6 +143,7 @@ main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
     
+    //Divying the work up
     for(i = 0; i < THREADNUM; i++){
         arguments[i].start  = (WORKLOAD / THREADNUM) * i;
         arguments[i].end    = (WORKLOAD / THREADNUM) * (i+1);
@@ -125,6 +156,7 @@ main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 
+    //GO
     for(i = 0; i < THREADNUM; i++){
         if(pthread_create(&threads[i],NULL,printHello,(void*)&arguments[i]) != 0){
             perror("pthread_create failure ");
