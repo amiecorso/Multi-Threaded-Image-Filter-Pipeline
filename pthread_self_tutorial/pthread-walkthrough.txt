@@ -26,6 +26,7 @@ Learn
     Implement fizzbuzz using cond_broadcast at least once.
 
     Helpful links (please add if you find any usefull to you!)
+    https://computing.llnl.gov/tutorials/pthreads/ <-- Lawrence Livermore's POSIX threading overview
     http://ramcdougal.com/threads.html <-- Parallelize forloops (Don't know if we need this)
     https://stackoverflow.com/questions/14888027/mutex-lock-threads <-- How to Mutex
     https://stackoverflow.com/questions/459691/best-timing-method-in-c <-- Timing
